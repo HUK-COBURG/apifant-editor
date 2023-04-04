@@ -136,6 +136,7 @@ export default function buildConfig(
           brace: path.resolve(projectBasePath, "node_modules", "brace"),
         },
         fallback: {
+          fs: false,
           path: require.resolve("path-browserify"),
         }
       },
