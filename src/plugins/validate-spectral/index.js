@@ -56,7 +56,7 @@ export const validateSpec = (jsSpec) => (arg) => {
                 return {
                     level: severityToLevel[entry.severity],
                     message: entry.message,
-                    path: entry.path,
+                    path: entry.path.join("."),
                     line: entry.range.start.line + 1,
                     source: SOURCE
                 }
