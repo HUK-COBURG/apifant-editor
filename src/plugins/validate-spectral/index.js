@@ -3,8 +3,8 @@
 
 import * as spectralCore from "@stoplight/spectral-core"
 import * as Parsers from "@stoplight/spectral-parsers"; // make sure to install the package if you intend to use default parsers!
-
-import { truthy } from "@stoplight/spectral-functions"; // this has to be installed as well
+import debounce from "lodash/debounce"
+import ruleset from "./ruleset"
 
 const { Spectral, Document } = spectralCore;
 
@@ -15,9 +15,21 @@ export const updateJsonSpec = (ori, { specActions }) => (...args) => {
     specActions.validateSpec(spec)
 }
 
+// The bounce seems to be important
+const bounceErrors = debounce((errors, f) => {
+    f(errors)
+}, 500)
+
+const SOURCE = "spectral"
 
 //eslint-disable-next-line no-unused-vars
 export const validateSpec = (jsSpec) => (arg) => {
+
+    // Need to do this or errors will just add up
+    arg.errActions.clear({
+        source: SOURCE
+    })
+
     const severityToLevel = {
         0: "error",
         1: "warning",
@@ -25,7 +37,6 @@ export const validateSpec = (jsSpec) => (arg) => {
         3: "info",
         4: "info",
     }
-    console.log('core', spectralCore)
 
     const yaml = new Document(arg.specSelectors.specStr(), Parsers.Yaml, "/ignoreme")
 
@@ -33,24 +44,7 @@ export const validateSpec = (jsSpec) => (arg) => {
     spectral.setRuleset({
 
         // this will be our ruleset
-
-        rules: {
-
-            "no-empty-description": {
-
-                given: "$..description",
-
-                message: "Description must not be empty",
-
-                then: {
-
-                    function: truthy,
-
-                },
-
-            },
-
-        },
+        rules: ruleset.rules
 
     });
 
@@ -58,19 +52,20 @@ export const validateSpec = (jsSpec) => (arg) => {
     // TODO: This might need to use a different ruleset depending on input
     spectral.run(yaml)
         .then(response => {
-            console.log(response);
             const errors = response.map((entry) => {
                 return {
-                    level: 0,//severityToLevel[entry.severity],
+                    level: severityToLevel[entry.severity],
                     message: entry.message,
                     path: entry.path,
-                    line: entry.range.start.line + 1
+                    line: entry.range.start.line + 1,
+                    source: SOURCE
                 }
             })
             console.log("errors", errors);
             if (errors.length > 0) {
-                console.log('ich geh hier rein')
-                arg.errActions.newSpecErrBatch(errors)
+                // for some reason this works better than newSpecErrBatch
+                bounceErrors(errors, arg.errActions.newThrownErrBatch)
+
             }
         }
         ).catch((error) => {
@@ -84,9 +79,6 @@ export default function() {
             spec: {
                 actions: {
                     validateSpec,
-                },
-                wrapActions: {
-                    updateJsonSpec
                 }
             }
         }
