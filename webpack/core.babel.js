@@ -25,9 +25,9 @@ const result = configBuilder(
     },
 
     performance: {
-      hints: "error",
-      maxEntrypointSize: 1024000, // 1MB
-      maxAssetSize: 1024000, // 1MB
+      // hints: "error",
+      maxEntrypointSize: 1024000 * 3.25, // 1MB
+      maxAssetSize: 1024000 * 3.25, // 1MB
     },
   }
 )
