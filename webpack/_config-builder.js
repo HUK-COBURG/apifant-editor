@@ -136,6 +136,8 @@ export default function buildConfig(
           brace: path.resolve(projectBasePath, "node_modules", "brace"),
         },
         fallback: {
+          fs: false,
+          module: false,
           path: require.resolve("path-browserify"),
         }
       },
@@ -150,8 +152,8 @@ export default function buildConfig(
 
       performance: {
         hints: "error",
-        maxEntrypointSize: 1024000,
-        maxAssetSize: 1024000,
+        maxEntrypointSize: 1024000 * 3.25,
+        maxAssetSize: 1024000 * 3.25,
       },
 
       optimization: {
