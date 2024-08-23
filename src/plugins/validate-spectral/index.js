@@ -30,11 +30,6 @@ const SOURCE = "spectral"
 let controller = null
 const ABORT_SIGNAL = "new validation request; aborting the current one";
 //eslint-disable-next-line no-unused-vars
-export const validateMySpec = (jsSpec) => (arg) => {
-    console.log('in the mySpec')
-
-}
-export const validateSpec = (jsSpec) => (arg) => {
     // This not being null means a request is going on, cancel that
     if (controller != null) {
         controller.abort(ABORT_SIGNAL)
