@@ -2,6 +2,7 @@
 // after `updateJsonSpec` is dispatched.
 import debounce from "lodash/debounce"
 export const updateJsonSpec = (ori, { specActions }) => (...args) => {
+  console.log("Starting with function", args)
     ori(...args)
 
     const [spec] = args
@@ -31,10 +32,12 @@ let controller = null
 const ABORT_SIGNAL = "new validation request; aborting the current one";
 //eslint-disable-next-line no-unused-vars
 export const validateSpec = (jsSpec) => (arg) => {
+  arg.topbarActions.setSpinnerEnabled(true)
     // This not being null means a request is going on, cancel that
     if (controller != null) {
         controller.abort(ABORT_SIGNAL)
     }
+
     arg.errActions.clear({
         source: SOURCE
     })
@@ -85,7 +88,10 @@ export const validateSpec = (jsSpec) => (arg) => {
             console.error("Error:", error)
         }
         // Always set the controller to null, no matter if the fetch call actually was successful or not
-    }).finally(() => controller = null);
+    }).finally(() => {
+      controller = null
+      arg.topbarActions.setSpinnerEnabled(false)
+    });
 }
 
 export default function() {

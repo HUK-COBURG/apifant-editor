@@ -12,6 +12,7 @@ import SpectralVersion from "./SpectralVersion"
 import Logo from "../assets/logo_small.svg"
 import SpectralErrorsOnly from "./SpectralErrorsOnly"
 import SpectralEnvironment from "./SpectralEnvironment"
+import Spinner from "./Spinner"
 
 export default class Topbar extends React.Component {
   constructor(props, context) {
@@ -396,6 +397,7 @@ export default class Topbar extends React.Component {
             <SpectralEnvironment onChange={topbarActions.switchSpectralEnvironment} currentStateF={topbarSelectors.spectralEnvironment} />
           </div>
         </div>
+        <Spinner onChange={topbarActions.setSpinnerEnabled} currentStateF={topbarSelectors.spinnerEnabled} />
       </div>
     )
   }

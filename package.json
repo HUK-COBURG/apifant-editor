@@ -83,6 +83,7 @@
     "react-dropzone": "^12.0.4",
     "react-immutable-proptypes": "^2.1.0",
     "react-redux": "7.2.9",
+    "react-spinners": "=0.14.1",
     "react-split-pane": "^0.1.82",
     "react-transition-group": "^1.1.1",
     "redux": "=4.2.1",
