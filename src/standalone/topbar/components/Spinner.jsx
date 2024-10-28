@@ -1,5 +1,5 @@
 import React from "react"
-import { CircleLoader, ClipLoader, PacmanLoader, RotateLoader } from "react-spinners"
+import { ClipLoader } from "react-spinners"
 
 function Spinner(props) {
   const spinnerEnabled = props.currentStateF()
@@ -10,6 +10,5 @@ function Spinner(props) {
     </div>
   ) : null
 }
-
 
 export default Spinner;

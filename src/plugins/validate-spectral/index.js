@@ -2,7 +2,6 @@
 // after `updateJsonSpec` is dispatched.
 import debounce from "lodash/debounce"
 export const updateJsonSpec = (ori, { specActions }) => (...args) => {
-  console.log("Starting with function", args)
     ori(...args)
 
     const [spec] = args

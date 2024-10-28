@@ -397,7 +397,7 @@ export default class Topbar extends React.Component {
             <SpectralEnvironment onChange={topbarActions.switchSpectralEnvironment} currentStateF={topbarSelectors.spectralEnvironment} />
           </div>
         </div>
-        <Spinner onChange={topbarActions.setSpinnerEnabled} currentStateF={topbarSelectors.spinnerEnabled} />
+        <Spinner currentStateF={topbarSelectors.spinnerEnabled} />
       </div>
     )
   }
