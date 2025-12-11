@@ -69,7 +69,7 @@
     "immutable": "^3.x.x",
     "is-json": "^2.0.1",
     "js-file-download": "=0.4.12",
-    "js-yaml": "=4.1.0",
+    "js-yaml": "4.1.1",
     "json-beautify": "^1.0.1",
     "json-refs": "^3.0.4",
     "lodash": "^4.17.21",
