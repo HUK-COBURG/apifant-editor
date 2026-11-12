@@ -86,7 +86,7 @@
     "react-spinners": "=0.14.1",
     "react-split-pane": "^0.1.82",
     "react-transition-group": "^1.1.1",
-    "redux": "=4.2.1",
+    "redux": "=5.0.1",
     "reselect": "^4.0.0",
     "swagger-client": "^3.36.0",
     "swagger-ui": "^4.17.1",
